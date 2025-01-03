@@ -12,7 +12,7 @@ const sendPasswordResetEmail = async (email, token) => {
     },
   });
 
-  const resetLink = `https://beancode.ru/reset-password?token=${token}`;
+  const resetLink = `https://tatbayar.ru/reset-password?token=${token}`;
   const mailOptions = {
     from: process.env.MAIL,
     to: email,
@@ -44,29 +44,7 @@ const sendEmailInfo = async ({ email, subject, text }) => {
   await transporter.sendMail(mailOptions);
 };
 
-const sendOrderDetails = async ({ email, greetings }) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.HOST,
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.MAIL,
-      pass: process.env.PASS,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.MAIL,
-    to: email,
-    subject: "Детали заказа",
-    text: greetings,
-  };
-
-  await transporter.sendMail(mailOptions);
-};
-
 module.exports = {
   sendEmailInfo,
   sendPasswordResetEmail,
-  sendOrderDetails,
 };

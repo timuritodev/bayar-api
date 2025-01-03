@@ -79,23 +79,3 @@ router.get("/api/promo-codes", async (req, res, next) => {
 });
 
 module.exports = router;
-
-// INSERT INTO promo_codes (promo, discount, valid_from, valid_until)
-// VALUES ('FIRST', 10, NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH));
-
-// CREATE TABLE IF NOT EXISTS promo_codes (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     promo VARCHAR(255) NOT NULL,
-//     discount DECIMAL(5, 2) NOT NULL,
-//     valid_from DATETIME NOT NULL,
-//     valid_until DATETIME NOT NULL
-//   );
-
-// CREATE TABLE IF NOT EXISTS promo_code_usage (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     user_id INT NOT NULL,
-//     promo_code_id INT NOT NULL,
-//     usage_date DATETIME NOT NULL,
-//     FOREIGN KEY (user_id) REFERENCES user(id),
-//     FOREIGN KEY (promo_code_id) REFERENCES promo_codes(id)
-//   );
