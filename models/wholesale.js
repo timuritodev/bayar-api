@@ -1,14 +1,5 @@
 const { pool } = require("../utils/utils");
 
-// create table wholesale(
-//     id int auto_increment primary key,
-//     title varchar(100) not null,
-//     inn int not null,
-//     fio varchar(100) not null,
-//     phone varchar(100) not null,
-//     email varchar(100) not null
-//     );
-
 const createWholesale = async (wholesaleData) => {
   const { title, inn, fio, phone, email } = wholesaleData;
 
