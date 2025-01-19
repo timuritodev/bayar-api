@@ -8,6 +8,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger')
 const errorHandler = require('./middlewares/errorHandler')
 const rateLimiter = require('./middlewares/rateLimit')
 const userRoutes = require('./routes/users')
+const mailerRoutes = require('./routes/mailers')
 // const MySQLStore = require("express-mysql-session")(session);
 // const { pool } = require("./utils/utils");
 
@@ -72,6 +73,8 @@ app.get('/crash-test', () => {
 })
 
 app.use(userRoutes)
+
+app.use(mailerRoutes)
 
 app.use((req, res, next) => next(new NotFoundError('Страница не найдена')))
 app.use(errorLogger)
