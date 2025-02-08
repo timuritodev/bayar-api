@@ -9,6 +9,8 @@ const calculate_cost = (data) => {
 		roof_panel_thickness,
 		insulation_type,
 		region,
+		building_type,
+		roof_type,
 	} = data;
 
 	// Площадь стен: две длинные + две короткие минус проемы
@@ -17,8 +19,19 @@ const calculate_cost = (data) => {
 		door_area -
 		window_area;
 
-	// Площадь крыши: предположим плоская крыша
-	const roof_area = building_length * building_width;
+	// Площадь крыши: зависит от типа кровли
+	let roof_area;
+	if (building_type === 'двускатная') {
+		// Для двускатной крыши площадь увеличивается
+		const roof_height = building_width / 4; // Пример: высота крыши как 1/4 ширины здания
+		roof_area =
+			building_length *
+			Math.sqrt((building_width / 2) ** 2 + roof_height ** 2) *
+			2;
+	} else {
+		// Для односкатной крыши площадь как у плоской крыши
+		roof_area = building_length * building_width;
+	}
 
 	// Цены за единицу площади (например, рубли за кв.м.)
 	const prices = {
@@ -31,6 +44,10 @@ const calculate_cost = (data) => {
 		region_coefficient: {
 			Moscow: 1.2,
 			Default: 1.0,
+		},
+		roof_type_coefficient: {
+			с: 1.1, // Дополнительные затраты на парапет
+			без: 1.0, // Без дополнительных затрат
 		},
 	};
 
@@ -50,9 +67,15 @@ const calculate_cost = (data) => {
 	const region_coefficient =
 		prices.region_coefficient[region] || prices.region_coefficient.Default;
 
+	// Учитываем коэффициент типа кровли (парапет)
+	const roof_type_coefficient =
+		prices.roof_type_coefficient[roof_type] || prices.roof_type_coefficient.без;
+
 	// Итоговая стоимость
 	const total_cost =
-		(wall_panel_cost + roof_panel_cost + insulation_cost) * region_coefficient;
+		(wall_panel_cost + roof_panel_cost + insulation_cost) *
+		region_coefficient *
+		roof_type_coefficient;
 
 	return {
 		total_cost: Math.round(total_cost),
@@ -61,6 +84,7 @@ const calculate_cost = (data) => {
 			roof_panel_cost: Math.round(roof_panel_cost),
 			insulation_cost: Math.round(insulation_cost),
 			region_coefficient,
+			roof_type_coefficient,
 		},
 	};
 };

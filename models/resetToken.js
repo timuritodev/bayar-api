@@ -67,3 +67,11 @@ module.exports = {
 	getResetTokenInfo,
 	removeResetToken,
 };
+
+// CREATE TABLE reset_token (
+//     id INT NOT NULL AUTO_INCREMENT,
+//     user_id INT NOT NULL,
+//     token VARCHAR(100) NOT NULL,
+//     expiration_time VARCHAR(100) NOT NULL,
+//     PRIMARY KEY (id)
+// );
