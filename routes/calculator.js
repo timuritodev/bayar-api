@@ -12,7 +12,7 @@ router.post('/api/calculate', (req, res) => {
 		}
 
 		const result = calculate_cost(data);
-		res.json({ ...result.total_cost });
+		res.json(result);
 	} catch (error) {
 		console.error('Error calculating cost:', error);
 		res.status(500).json({ error: 'Internal Server Error' });
