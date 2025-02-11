@@ -1,50 +1,50 @@
-require("dotenv").config();
-const nodemailer = require("nodemailer");
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 const sendPasswordResetEmail = async (email, token) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.HOST,
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.MAIL,
-      pass: process.env.PASS,
-    },
-  });
+	const transporter = nodemailer.createTransport({
+		host: process.env.HOST,
+		port: 587,
+		secure: false,
+		auth: {
+			user: process.env.MAIL,
+			pass: process.env.PASS,
+		},
+	});
 
-  const resetLink = `https://tatbayar.ru/reset-password?token=${token}`;
-  const mailOptions = {
-    from: process.env.MAIL,
-    to: email,
-    subject: "Сброс Пароля",
-    text: `Перейдите по следующей ссылке для сброса пароля: ${resetLink}`,
-  };
+	const resetLink = `https://tatbayar.ru/reset-password?token=${token}`;
+	const mailOptions = {
+		from: process.env.MAIL,
+		to: email,
+		subject: 'Сброс Пароля',
+		text: `Перейдите по следующей ссылке для сброса пароля: ${resetLink}`,
+	};
 
-  await transporter.sendMail(mailOptions);
+	await transporter.sendMail(mailOptions);
 };
 
 const sendEmailInfo = async ({ email, subject, text }) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.HOST,
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.MAIL,
-      pass: process.env.PASS,
-    },
-  });
+	const transporter = nodemailer.createTransport({
+		host: process.env.HOST,
+		port: 587,
+		secure: false,
+		auth: {
+			user: process.env.MAIL,
+			pass: process.env.PASS,
+		},
+	});
 
-  const mailOptions = {
-    from: email,
-    to: process.env.MAIL,
-    subject: subject,
-    text: text,
-  };
+	const mailOptions = {
+		from: email,
+		to: process.env.MAIL,
+		subject: subject,
+		text: text,
+	};
 
-  await transporter.sendMail(mailOptions);
+	await transporter.sendMail(mailOptions);
 };
 
 module.exports = {
-  sendEmailInfo,
-  sendPasswordResetEmail,
+	sendEmailInfo,
+	sendPasswordResetEmail,
 };
