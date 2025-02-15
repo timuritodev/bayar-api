@@ -10,6 +10,7 @@ const calculate_cost = (data) => {
 		wall_panel_width, // Ширина стеновой панели, м (1 или 1.19)
 		metal_thickness, // Толщина металла, допустимые значения: 0.45; 0.5; 0.6; 0.7
 		insulation_type, // Тип наполнителя (на данный момент – только минеральная вата)
+		insulation_density, // Плотность утеплителя (95-120 с шагом 5)
 		region, // Район строительства (не влияет на цену, используется для справки)
 		color, // Код цвета металла (стандартные – например, [9003, 7004, 8016])
 	} = data;
@@ -98,8 +99,10 @@ const calculate_cost = (data) => {
 	// Утеплитель.
 	// Работает только с каменной ватой. Если понадобится учитывать плотность, можно добавить дополнительный параметр.
 	// Здесь примем цену 500 руб/кв.м.
+	const baseInsulationDensity = 100;
+	const insulationDensityFactor = insulation_density / baseInsulationDensity;
 	const insulationPrice = 500;
-	const insulation_cost = wall_area * insulationPrice;
+	const insulation_cost = wall_area * insulationPrice * insulationDensityFactor;
 
 	// Итоговая стоимость с НДС 20%
 	const subtotal = wall_panel_cost + roof_panel_cost + insulation_cost;
