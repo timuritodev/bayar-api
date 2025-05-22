@@ -11,6 +11,7 @@ const userRoutes = require('./routes/users');
 const mailerRoutes = require('./routes/mailers');
 const calculatorRoutes = require('./routes/calculator');
 const water_accessoryRoutes = require('./routes/water_accessory');
+const productRoutes = require('./routes/product');
 // const MySQLStore = require("express-mysql-session")(session);
 // const { pool } = require("./utils/utils");
 
@@ -81,6 +82,8 @@ app.use(mailerRoutes);
 app.use(calculatorRoutes);
 
 app.use(water_accessoryRoutes);
+
+app.use(productRoutes);
 
 app.use((req, res, next) => next(new NotFoundError('Страница не найдена')));
 app.use(errorLogger);
