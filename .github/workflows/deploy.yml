@@ -28,4 +28,4 @@ jobs:
             cd /home/bayar/bayar-api
             git pull origin main
             npm ci
-            pm2 restart backend
+            pm2 restart bayar-api
