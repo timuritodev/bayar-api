@@ -14,8 +14,8 @@ router.get('/api/products', async (req, res) => {
 	}
 });
 
-// GET /api/products/:type — товары по типу
-router.get('/api/products/:type', async (req, res) => {
+// GET /api/products/type/:type — товары по типу
+router.get('/api/products/type/:type', async (req, res) => {
 	try {
 		const { type } = req.params;
 		const products = await productsModel.getProductsByType(type);
